@@ -1,3 +1,4 @@
+@file:Suppress("SpellCheckingInspection")
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -11,6 +12,7 @@ plugins {
 
 group = "net.sickmc"
 version = "1.0.0"
+description = "API providing fundamentals for the SickMC components"
 val authors = listOf("btwonion")
 val githubRepo = "SickMC/SickAPI"
 

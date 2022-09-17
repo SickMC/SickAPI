@@ -21,5 +21,12 @@ data class SickPlayer(
     val advancements: MutableList<PlayerAdvancement>,
     var discordID: String?,
     val extraPermissions: MutableList<String>,
-    var playtime: Long
+    var playtime: Long,
+    var gamePlayers: MutableList<GamePlayer>
 )
+
+@Serializable
+abstract class GamePlayer {
+    abstract val uuid: @Serializable(with = UUIDSerializer::class) UUID
+    abstract val gameType: GameType
+}

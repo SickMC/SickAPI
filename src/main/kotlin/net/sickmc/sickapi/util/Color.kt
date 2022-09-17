@@ -4,13 +4,13 @@ import kotlinx.serialization.Serializable
 import java.awt.Color
 
 @Serializable
-open class ColorHolder
+open class ColorHolder(val fallbackColor: Int)
 
 @Serializable
-data class Gradient(val startColor: Int, val endColor: Int) : ColorHolder()
+data class Gradient(val startColor: Int, val endColor: Int) : ColorHolder(startColor)
 
 @Serializable
-data class StaticColor(val color: Int) : ColorHolder()
+data class StaticColor(val color: Int) : ColorHolder(color)
 
 fun Gradient.getColor(percent: Double): Int {
     val color1 = Color(startColor)

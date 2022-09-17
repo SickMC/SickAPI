@@ -11,5 +11,4 @@ abstract class Reward {
     abstract val color: ColorHolder
 
     abstract suspend fun applyTo(player: SickPlayer)
-
 }

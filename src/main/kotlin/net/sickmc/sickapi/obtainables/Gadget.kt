@@ -14,4 +14,4 @@ data class Gadget(
 )
 
 @Serializable
-data class PlayerGadget(val gadget: Gadget, val currentLevel: Int)
+data class PlayerGadget(val gadget: Gadget, var currentLevel: Int)

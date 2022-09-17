@@ -1,18 +1,19 @@
 @file:Suppress("SpellCheckingInspection")
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.7.10"
     kotlin("plugin.serialization") version "1.7.10"
-    id("io.realm.kotlin") version "1.1.0"
 
     `maven-publish`
     signing
 }
 
 group = "net.sickmc"
-version = "1.0.0"
+version = "1.0.1"
 description = "API providing fundamentals for the SickMC components"
+val isSnapshot = false
 val authors = listOf("btwonion")
 val githubRepo = "SickMC/SickAPI"
 
@@ -31,8 +32,6 @@ dependencies {
     implementation("io.ktor:ktor-client-websockets:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:1.4.1")
-
-    implementation("io.realm.kotlin:library-base:1.1.0")
 }
 
 tasks.withType<KotlinCompile> {
@@ -57,7 +56,8 @@ publishing {
             name = "ossrh"
             credentials(PasswordCredentials::class)
             setUrl(
-                "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
+                if (!isSnapshot) "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
+                else "https://s01.oss.sonatype.org/content/repositories/snapshots"
             )
         }
     }

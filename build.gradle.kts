@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.7.10"
     kotlin("plugin.serialization") version "1.7.10"
 
+    id("com.github.breadmoirai.github-release") version "2.+"
     `maven-publish`
     signing
 }
@@ -45,9 +46,29 @@ tasks.withType<JavaCompile> {
     }
 }
 
+githubRelease {
+    token(findProperty("github.token")?.toString())
+
+    val split = githubRepo.split("/")
+    owner(split[0])
+    repo(split[1])
+    tagName("v${project.version}")
+    prerelease(isSnapshot)
+    releaseAssets(tasks["build"].outputs.files)
+}
+
 java {
     withSourcesJar()
     withJavadocJar()
+}
+
+tasks {
+    register("release") {
+        group = "publishing"
+
+        dependsOn("githubRelease")
+        dependsOn("publish")
+    }
 }
 
 publishing {

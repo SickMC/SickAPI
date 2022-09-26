@@ -1,1 +1,1 @@
-rootProject.name = "SickAPI"
+rootProject.name = "sickapi"

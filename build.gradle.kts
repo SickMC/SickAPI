@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "net.sickmc"
-version = "1.0.0"
+version = "1.0.1"
 description = "API providing fundamentals for the SickMC components"
 val isSnapshot = false
 val authors = listOf("btwonion")
@@ -33,17 +33,6 @@ dependencies {
     implementation("io.ktor:ktor-client-websockets:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:1.4.1")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
-}
-
-tasks.withType<JavaCompile> {
-    options.apply {
-        release.set(18)
-        encoding = "UTF-8"
-    }
 }
 
 githubRelease {

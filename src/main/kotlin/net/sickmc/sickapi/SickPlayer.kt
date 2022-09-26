@@ -1,10 +1,12 @@
 package net.sickmc.sickapi
 
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import net.sickmc.sickapi.obtainables.PlayerAdvancement
 import net.sickmc.sickapi.obtainables.PlayerGadget
 import net.sickmc.sickapi.rank.Rank
-import net.sickmc.sickapi.util.UUIDSerializer
+import net.sickmc.sickapi.rank.rankCache
+import net.sickmc.sickapi.util.*
 import java.util.*
 
 @Serializable
@@ -12,7 +14,7 @@ data class SickPlayer(
     val uuid: @Serializable(with = UUIDSerializer::class) UUID,
     var permanentRank: Rank,
     var currentRank: Rank,
-    var rankExpire: Long,
+    var rankExpire: Long?,
     var smucks: Int,
     var totalAddiction: Int,
     var addictionProgress: Int,
@@ -29,4 +31,31 @@ data class SickPlayer(
 abstract class GamePlayer {
     abstract val uuid: @Serializable(with = UUIDSerializer::class) UUID
     abstract val gameType: GameType
+}
+
+val playerCache = PlayerCache()
+
+class PlayerCache : Cache<UUID, SickPlayer>() {
+    suspend fun create(key: UUID): SickPlayer {
+        val new = SickPlayer(
+            key,
+            rankCache.get("default") ?: error("default rank in playerCache not found!"),
+            rankCache.get("default") ?: error("default rank in playerCache not found!"),
+            null,
+            0,
+            0,
+            0,
+            0,
+            mutableListOf(),
+            mutableListOf(),
+            null,
+            mutableListOf(),
+            0,
+            mutableListOf()
+        )
+        databaseScope.launch {
+            players.insertOne(new)
+        }
+        return new
+    }
 }

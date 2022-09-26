@@ -11,7 +11,9 @@ class Cache<T, V>(private val loader: suspend T.() -> V?, private val creator: s
     suspend fun get(key: T, reload: Boolean = false): V? {
         if (reload) {
             val new = loader.invoke(key) ?: return null
-            cache[key] = new
+            mutex.withLock {
+                cache[key] = new
+            }
             return new
         }
         mutex.withLock {
@@ -23,9 +25,17 @@ class Cache<T, V>(private val loader: suspend T.() -> V?, private val creator: s
         }
     }
 
+    suspend fun add(key: T, value: V) {
+        mutex.withLock {
+            cache[key] = value
+        }
+    }
+
     suspend fun create(key: T): V {
         val created = creator(key)
-        cache[key] = created
+        mutex.withLock {
+            cache[key] = created
+        }
         return created
     }
 }

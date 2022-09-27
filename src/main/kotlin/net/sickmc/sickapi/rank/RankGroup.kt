@@ -12,5 +12,6 @@ data class RankGroup(
     val color: ColorHolder,
     val ranks: MutableList<Rank>,
     val permissions: MutableList<String>,
-    val prefix: String
+    val prefix: String,
+    val priority: Int
 )

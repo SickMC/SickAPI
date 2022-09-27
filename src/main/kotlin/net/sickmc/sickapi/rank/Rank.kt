@@ -10,3 +10,5 @@ data class Rank(
     val name: String,
     val extraPermissions: MutableList<String>
 )
+
+fun Rank.getParent(): RankGroup = rankGroupCache.cache.filterValues { it.ranks.contains(this) }.map { it.value }[0]

@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "net.sickmc"
-version = "1.0.7"
+version = "1.0.8"
 description = "API providing fundamentals for the SickMC components"
 val isSnapshot = false
 val authors = listOf("btwonion")
@@ -23,10 +23,10 @@ repositories {
 dependencies {
     implementation("org.litote.kmongo:kmongo-coroutine-serialization:4.7.1")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
-    val ktorVersion = "2.1.1"
+    val ktorVersion = "2.1.2"
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-websockets:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")

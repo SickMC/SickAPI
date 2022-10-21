@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.Serializable
 import net.sickmc.sickapi.SickPlayer
 import net.sickmc.sickapi.rank.RankGroup
+import org.bson.Document
 import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.coroutine.coroutine
@@ -32,10 +33,11 @@ val db = mongoClient.getDatabase(env("MONGO_DATABASE"))
 
 var rankGroups: CoroutineCollection<RankGroup> = db.getCollection("rankGroups")
 var players: CoroutineCollection<SickPlayer> = db.getCollection("sickPlayers")
-
+var configs: CoroutineCollection<Document> = db.getCollection("config")
 suspend fun initMongo() {
     rankGroups = db.getAndCreateCollection("rankGroups")
     players = db.getAndCreateCollection("sickPlayers")
+    configs = db.getAndCreateCollection("config")
 }
 
 suspend fun <T : @Serializable Any> CoroutineCollection<T>.retrieveOne(key: String, value: String): T? {

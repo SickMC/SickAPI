@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "net.sickmc"
-version = "1.0.8"
+version = "1.0.9"
 description = "API providing fundamentals for the SickMC components"
 val isSnapshot = false
 val authors = listOf("btwonion")

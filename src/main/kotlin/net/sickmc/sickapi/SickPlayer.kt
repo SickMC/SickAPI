@@ -12,6 +12,7 @@ import java.util.*
 @Serializable
 data class SickPlayer(
     val uuid: @Serializable(with = UUIDSerializer::class) UUID,
+    val uuidString: String,
     var permanentRank: Rank,
     var currentRank: Rank,
     var rankExpire: Long?,
@@ -30,6 +31,7 @@ data class SickPlayer(
 @Serializable
 abstract class GamePlayer {
     abstract val uuid: @Serializable(with = UUIDSerializer::class) UUID
+    abstract val uuidString: String
     abstract val gameType: GameType
 }
 
@@ -39,6 +41,7 @@ class PlayerCache : Cache<UUID, SickPlayer>() {
     suspend fun create(key: UUID): SickPlayer {
         val new = SickPlayer(
             key,
+            key.toString(),
             rankCache.get("default") ?: error("default rank in playerCache not found!"),
             rankCache.get("default") ?: error("default rank in playerCache not found!"),
             null,

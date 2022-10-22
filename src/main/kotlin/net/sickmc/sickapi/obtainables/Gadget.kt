@@ -8,6 +8,7 @@ import java.util.*
 @Serializable
 data class Gadget(
     val uuid: @Serializable(with = UUIDSerializer::class) UUID,
+    val uuidString: String,
     val name: String,
     val color: ColorHolder,
     val levels: Int

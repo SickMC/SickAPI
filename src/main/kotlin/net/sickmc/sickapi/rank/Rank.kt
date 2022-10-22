@@ -7,6 +7,7 @@ import java.util.*
 @Serializable
 data class Rank(
     val uuid: @Serializable(with = UUIDSerializer::class) UUID,
+    val uuidString: String,
     val name: String,
     val extraPermissions: MutableList<String>
 )

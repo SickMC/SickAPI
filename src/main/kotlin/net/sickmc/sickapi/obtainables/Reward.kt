@@ -6,7 +6,6 @@ import net.sickmc.sickapi.util.ColorHolder
 
 @Serializable
 abstract class Reward {
-
     abstract val name: String
     abstract val color: ColorHolder
 

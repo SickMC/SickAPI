@@ -8,6 +8,7 @@ import java.util.*
 @Serializable
 data class Advancement(
     val uuid: @Serializable(with = UUIDSerializer::class) UUID,
+    val uuidString: String,
     val name: String,
     val color: ColorHolder,
     val maxLevels: Int
